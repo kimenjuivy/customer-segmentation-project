@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Customer Segmentation — Project Showcase</title>
+  <meta name="description" content="Interactive dashboards & repo for Customer Segmentation & Revenue Forecasting project" />
+  <link rel="icon" href="https://github.githubassets.com/favicons/favicon.png">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#5eead4;
+      --glass: rgba(255,255,255,0.03);
+      --maxwidth:1200px;
+      --gap:20px;
+      --radius:14px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #e6eef8;
+    }
+
+    html,body{height:100%;margin:0;background:
+      linear-gradient(180deg,#031025 0%, #071323 55%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .wrap{max-width:var(--maxwidth);margin:28px auto;padding:28px;}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:54px;height:54px;border-radius:12px;background:
+      linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#021022}
+    h1{margin:0;font-size:20px; letter-spacing:0.2px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    nav.links{display:flex;gap:12px;align-items:center}
+    .btn{
+      background:linear-gradient(90deg,#06b6d4,#7c3aed);
+      color:#021022;padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:600;font-size:13px;
+      box-shadow:0 6px 18px rgba(124,58,237,0.12);
+    }
+    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;border-radius:10px;text-decoration:none;font-size:13px}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--gap);margin-top:24px}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius); padding:14px; box-shadow: 0 6px 24px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;gap:12px;
+    }
+    .card h3{margin:0;font-size:15px}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+    .preview{
+      background:var(--glass);border-radius:10px;overflow:hidden;height:320px;display:flex;align-items:center;justify-content:center;
+    }
+    .preview iframe{width:100%;height:100%;border:0;display:block}
+    .thumb{width:100%;height:100%;object-fit:cover;display:block}
+
+    .card .actions{display:flex;align-items:center;gap:8px;justify-content:space-between}
+    .left-meta{display:flex;gap:8px;align-items:center}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:12px}
+
+    footer{margin-top:30px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:80}
+    .modal.open{display:flex}
+    .modal-content{width:90%;height:85%;background:#011018;border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.8)}
+    .modal-header{display:flex;justify-content:flex-end;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .modal-close{background:transparent;border:0;color:var(--muted);font-size:16px;padding:8px;cursor:pointer}
+    .modal-iframe{width:100%;height:calc(100% - 48px);border:0}
+
+    /* responsive tweaks */
+    @media (max-width:600px){
+      .preview{height:220px}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .brand h1{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">CS</div>
+        <div>
+          <h1>Customer Segmentation — Interactive Showcase</h1>
+          <p class="lead">Explore the dashboards & view the repository. Built with Python, Plotly, Prophet & Plotly Dash / static HTML exports.</p>
+        </div>
+      </div>
+
+      <nav class="links">
+        <a class="ghost" href="https://github.com/kimenjuivy/customer-segmentation-project" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn" href="https://github.com/kimenjuivy/customer-segmentation-project" target="_blank" rel="noopener">Open repo • README</a>
+      </nav>
+    </header>
+
+    <section>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div class="tag">Data: 392k transactions • 37 countries</div>
+        <div class="tag">Models: RFM, KMeans, Prophet</div>
+        <div class="tag">Published: 2025</div>
+      </div>
+
+      <div class="grid" aria-live="polite" id="cards">
+        <!-- Card: Executive -->
+        <article class="card">
+          <h3>Executive Dashboard</h3>
+          <p>High-level KPIs, revenue trends, and clean visuals for business stakeholders. Quick actions and filters included.</p>
+
+          <div class="preview" data-src="visuals/executive_dashboard.html" data-thumb="visuals/time_series_analysis.png">
+            <!-- thumb shown while iframe is lazy-loaded -->
+            <img class="thumb" src="visuals/time_series_analysis.png" alt="Executive dashboard preview">
+          </div>
+
+          <div class="actions">
+            <div class="left-meta"><span class="tag">Interactive</span></div>
+            <div style="display:flex;gap:8px">
+              <button class="ghost" onclick="openModal('visuals/executive_dashboard.html')">Preview fullscreen</button>
+              <a class="btn" href="visuals/executive_dashboard.html" target="_blank" rel="noopener">Open full</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Customer Segments -->
+        <article class="card">
+          <h3>Customer Segments Explorer</h3>
+          <p>RFM clusters, segment profiling & segment-level KPIs. Useful for targeted campaigns.</p>
+
+          <div class="preview" data-src="visuals/interactive_customer_segments.html" data-thumb="visuals/segment_analysis.png">
+            <img class="thumb" src="visuals/segment_analysis.png" alt="Segments preview">
+          </div>
+
+          <div class="actions">
+            <div class="left-meta"><span class="tag">RFM • KMeans</span></div>
+            <div style="display:flex;gap:8px">
+              <button class="ghost" onclick="openModal('visuals/interactive_customer_segments.html')">Preview fullscreen</button>
+              <a class="btn" href="visuals/interactive_customer_segments.html" target="_blank" rel="noopener">Open full</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Product Analysis -->
+        <article class="card">
+          <h3>Product Analysis</h3>
+          <p>Top products by revenue & quantity — supports merchandising and inventory decisions.</p>
+
+          <div class="preview" data-src="visuals/interactive_product_analysis.html" data-thumb="visuals/top_products_revenue.png">
+            <img class="thumb" src="visuals/top_products_revenue.png" alt="Product analysis preview">
+          </div>
+
+          <div class="actions">
+            <div class="left-meta"><span class="tag">Product KPIs</span></div>
+            <div style="display:flex;gap:8px">
+              <button class="ghost" onclick="openModal('visuals/interactive_product_analysis.html')">Preview fullscreen</button>
+              <a class="btn" href="visuals/interactive_product_analysis.html" target="_blank" rel="noopener">Open full</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card: Revenue Forecast -->
+        <article class="card">
+          <h3>Revenue Forecast (Prophet)</h3>
+          <p>90-day forecast with confidence bands, error metrics and business-ready scenarios.</p>
+
+          <div class="preview" data-src="visuals/interactive_revenue_forecast.html" data-thumb="visuals/prophet_forecast.png">
+            <img class="thumb" src="visuals/prophet_forecast.png" alt="Forecast preview">
+          </div>
+
+          <div class="actions">
+            <div class="left-meta"><span class="tag">Forecast</span></div>
+            <div style="display:flex;gap:8px">
+              <button class="ghost" onclick="openModal('visuals/interactive_revenue_forecast.html')">Preview fullscreen</button>
+              <a class="btn" href="visuals/interactive_revenue_forecast.html" target="_blank" rel="noopener">Open full</a>
+            </div>
+          </div>
+        </article>
+
+      </div> <!-- grid -->
+    </section>
+
+    <footer>
+      <div>Made with Python • Plotly • Prophet • Jupyter</div>
+      <div style="display:flex;gap:10px">
+        <a class="ghost" href="README.md" target="_blank">README</a>
+        <a class="ghost" href="https://github.com/kimenjuivy/customer-segmentation-project" target="_blank">Open repo</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- modal for full preview -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModal()">Close ✕</button>
+      </div>
+      <iframe id="modalFrame" class="modal-iframe" src="" title="Dashboard preview"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // lazy load previews when visible or on click
+    document.addEventListener('DOMContentLoaded', function(){
+      const previews = document.querySelectorAll('.preview');
+
+      // IntersectionObserver to lazy-load iframe when visible
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              attachPreview(el);
+              observer.unobserve(el);
+            }
+          });
+        }, {root: null, rootMargin: '0px', threshold: 0.15});
+
+        previews.forEach(p => obs.observe(p));
+      } else {
+        // fallback: attach immediately
+        previews.forEach(attachPreview);
+      }
+
+      // clicking thumbnail will replace with iframe
+      previews.forEach(p => {
+        p.addEventListener('click', () => {
+          attachPreview(p, true);
+        });
+      });
+    });
+
+    function attachPreview(container, forceOpen = false) {
+      // if already has iframe, skip
+      if (container.querySelector('iframe')) return;
+      const src = container.dataset.src;
+      const thumb = container.dataset.thumb;
+      // If forced, replace thumb with iframe immediately; otherwise try to lazy load small iframe
+      try {
+        const iframe = document.createElement('iframe');
+        iframe.loading = 'lazy';
+        iframe.src = src;
+        iframe.title = 'Dashboard preview';
+        iframe.style.border = '0';
+        // small precaution to limit resource usage: only add iframe when forced OR container visible width > 200
+        if (forceOpen || container.clientWidth > 250) {
+          container.innerHTML = '';
+          container.appendChild(iframe);
+        } else {
+          // keep the thumbnail for now, but prefetch the page
+          prefetchURL(src);
+        }
+      } catch (e) {
+        // on error, leave thumbnail
+        console.warn('iframe attach failed', e);
+      }
+    }
+
+    function prefetchURL(url) {
+      // lightweight prefetch using link rel=prefetch
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = url;
+      document.head.appendChild(link);
+    }
+
+    // modal logic
+    function openModal(srcUrl) {
+      const modal = document.getElementById('modal');
+      const frame = document.getElementById('modalFrame');
+      frame.src = srcUrl;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      const frame = document.getElementById('modalFrame');
+      frame.src = '';
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    // keyboard close
+    document.addEventListener('keydown', (e)=> {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
