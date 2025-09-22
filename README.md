@@ -117,7 +117,7 @@ jupyter notebook notebooks/05_dashboard_final.ipynb
 - **Excel**: Import `data/executive_summary.xlsx` for pivot table analysis
 
 ## 📞 Contact
-**Data Science Team** | [LinkedIn Profile] | [Portfolio Website]
+**Data Science Team** | https://www.linkedin.com/in/ivy-kimenju/| 
 
 ---
 *Generated on 2025-09-22 18:29:00 | Data Analysis Period: 2010-12-01 to 2011-12-09*
